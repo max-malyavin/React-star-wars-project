@@ -1,0 +1,21 @@
+.randomP {
+    padding: 20px;
+    background-color: #ccc;
+    border-radius: 15px;
+}
+.randomP__inner {
+    display: flex;
+    justify-content: center;
+}
+.randomP__img {
+    width: 200px;
+    height: 180px;
+    img {
+        width: 100%;
+        display: block;
+        height: 100%;
+    }
+}
+.randomP__info {
+    margin-left: 50px;
+}
