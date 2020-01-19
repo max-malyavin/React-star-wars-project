@@ -1,6 +1,7 @@
 import React from 'react';
 import './RandomPlanet.scss';
 import SwapiService from './../../Api/Api';
+import Loading from '../Loading/Loading';
 
 
 export default class RandomPlanet extends React.Component {
@@ -37,6 +38,7 @@ export default class RandomPlanet extends React.Component {
         return (
             <section className="randomP">
                 <div className="randomP__inner">
+                    <Loading/>
                     <div className="randomP__img">
                         <img src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} alt=""/>
                     </div>
@@ -46,6 +48,7 @@ export default class RandomPlanet extends React.Component {
                     <div>Ratation Period {rotationPeriod}</div>
                         <div>Diameter {diameter}</div>
                     </div>
+
                 </div>
             </section>
         )

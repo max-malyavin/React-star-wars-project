@@ -9,7 +9,7 @@ const App = () =>{
       <div className="container">
           <Header/>
           <RandomPlanet/>
-
+         
 
 
       </div>
