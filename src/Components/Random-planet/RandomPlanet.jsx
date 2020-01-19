@@ -6,27 +6,39 @@ import Loading from '../Loading/Loading';
 
 export default class RandomPlanet extends React.Component {
 
-    constructor() {
-        super();
-        this.updatePlanet();
-        }
+   
        
     swapiService = new SwapiService();
 
     state = {
-        planet: {}
+        planet: {},
+        loading: true,
+        error: false
     };
 
 
+        componentDidMount() {
+            this.updatePlanet();
+            this.interval = setInterval(this.updatePlanet, 2500);
+        }
+
+
     onPlanetLoaded = (planet) => {
-        this.setState({planet});
+        this.setState({planet,
+        loading: false});
     }
 
 
-
-    updatePlanet() {
+    onError = (err)=> {
+        alert("Ошибка")
+        this.setState({
+            error: true
+        })
+    }
+    updatePlanet = () =>{
         const id = Math.floor(Math.random()*25) +2;
         this.swapiService.getPlanet(id).then(this.onPlanetLoaded)
+        .catch(this.onError);
     };
 
   
@@ -34,21 +46,33 @@ export default class RandomPlanet extends React.Component {
 
 
     render() {
-        const { planet: { population, rotationPeriod, diameter, name, id }} = this.state;
+        const { planet: { population, rotationPeriod, diameter, name, id }, loading, error} = this.state;
+
+
+     
+
         return (
             <section className="randomP">
-                <div className="randomP__inner">
-                    <Loading/>
-                    <div className="randomP__img">
-                        <img src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} alt=""/>
-                    </div>
-                    <div className="randomP__info">
-                        <h1>{name}</h1>
-                        <div>Population {population}</div>
-                    <div>Ratation Period {rotationPeriod}</div>
-                        <div>Diameter {diameter}</div>
-                    </div>
+                <div className="randomP__inner">  
 
+
+                    {loading ? <Loading/>
+
+                    :  <>
+                         <div className="randomP__img">
+                        <img 
+                        src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} alt="Планета"/>
+                         </div>
+                        <div className="randomP__info">
+                                    <h1>{name}</h1>
+                                <div>Population {population}</div>
+                            <div>Ratation Period {rotationPeriod}</div>
+                                <div>Diameter {diameter}</div>
+                    </div>
+                   
+                    </>}
+
+                   
                 </div>
             </section>
         )
